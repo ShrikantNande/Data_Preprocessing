@@ -5,6 +5,8 @@ from pandas.plotting import scatter_matrix
 
 #split Filename
 file = "housing.csv"
+#If incase file name is --input 
+#file = input("Enter the file name:")
 filetype = file.split(".")[1]
 print('File Type:',filetype)
 
