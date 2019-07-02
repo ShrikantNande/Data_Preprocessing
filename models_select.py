@@ -1,6 +1,7 @@
+#Load the data form Read file 
 from Read import data
 from Datatype import num_cols, cat_cols
-# import model
+# import model 
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -23,18 +24,20 @@ DT = DecisionTreeClassifier()
 missing_value=data.isnull().sum()
 data=data.dropna()
 
+#Selection of Input variables for model building 
 print("Select input variables by Data types such as \n 1) int64 \n 2) float64 \n 3) object")
 x= input("Input_Data_type :")
 x=data.select_dtypes([x])
 print("Variables as Input variable",x.columns)
 
-print("Your target should be in the last columns. Please see that..!!!!!!!!!!")
-
-#target variable is in last columns
-y=data[data.columns[len(data.columns)-1]]
-
+#Selection of model as a short form
 print("Model List :\n 1) LinearDiscriminantAnalysis = LR \n 2) LogisticRegression = LoR \n 3) KNeighborsClassifier = KNN \n 4) GaussianNB = GNB \n 5) SVM = SVM \n 6) DecisionTreeClassifier = DT")
 model_name = input("Select the model : ") 
+
+#for tha target variable , output should be in last variable column
+print("Your target should be in the last columns. Please see that..!!!!!!!!!!")
+#target variable is in last columns
+y=data[data.columns[len(data.columns)-1]]
 
 
 # Import label encoder ---target variable is in last columns
@@ -45,18 +48,16 @@ label_encoder = preprocessing.LabelEncoder()
 y= label_encoder.fit_transform(y) 
 #Appending the labled data for output
 y_label = []
-for out in y:
-    y_label.append(out)
-    
-
+for i in y:
+    y_label.append(i)
 #Append that labed data into the target variable
 y=y_label
 
-#Train_Test_split data 
+#Train_Test_split dataset 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(x, y, random_state=1)
 
-
+#y_list is a varible which y_pred is stored for ferther predictions
 y_list=[]
 #Read File
 def select_model(model_name):
@@ -113,12 +114,16 @@ def select_model(model_name):
    
 select_model(model_name)
 
+#predicted outputs are in array form to convert those into list form following for loop is used 
 y_predict = []
 for out in y_list:
     for i in out:
         y_predict.append(i)
+
+#Rounding  up those prdicted values towords interger values 
 y_predict = [round(x) for x in y_predict]
-       
+ 
+
 print("Confusion_matrix:")        
 confusion_matrix = confusion_matrix(y_test, y_predict)
 print(confusion_matrix)
