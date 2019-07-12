@@ -14,7 +14,7 @@ print('File Type:',filetype)
 #File Path 
 import os
 import os.path
-os.chdir( "/home/Desktop/ZEUS")#Path for the file directory
+os.chdir( "/home/Desktop/")#Path for the file directory
 
 
 #Read File
